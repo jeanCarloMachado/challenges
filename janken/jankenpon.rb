@@ -1,6 +1,5 @@
 require "test/unit"
 
-
 class Jankenpon 
 
   STONE = 1
