@@ -50,41 +50,46 @@ class Converter
     raise "Symbols can never be repeated" if /(DD|LL|VV)/ =~ @symbols
   end
 
+  def self.resolve(symbols)
+    converter = self.new(symbols)
+    converter.getResult()
+  end
+
 end
 
 class ConverterTest < Test::Unit::TestCase
   def test_single_symbols
-    assert_equal(1, Converter.new('I').getResult())
-    assert_equal(5, Converter.new('V').getResult())
-    assert_equal(10, Converter.new('X').getResult())
-    assert_equal(50, Converter.new('L').getResult())
-    assert_equal(100, Converter.new('C').getResult())
-    assert_equal(500, Converter.new('D').getResult())
-    assert_equal(1000, Converter.new('M').getResult())
+    assert_equal(1, Converter.resolve('I'))
+    assert_equal(5, Converter.resolve('V'))
+    assert_equal(10, Converter.resolve('X'))
+    assert_equal(50, Converter.resolve('L'))
+    assert_equal(100, Converter.resolve('C'))
+    assert_equal(500, Converter.resolve('D'))
+    assert_equal(1000, Converter.resolve('M'))
   end
 
   def test_sums_when_greater_numbers_precedes_smaller_ones
-    assert_equal(6, Converter.new('VI').getResult())
-    assert_equal(7, Converter.new('VII').getResult())
-    assert_equal(2006, Converter.new('MMVI').getResult())
+    assert_equal(6, Converter.resolve('VI'))
+    assert_equal(7, Converter.resolve('VII'))
+    assert_equal(2006, Converter.resolve('MMVI'))
   end
 
   def test_decrease_when_lesser_numbers_precedes_greater_ones
-    assert_equal(40, Converter.new('XL').getResult())
-    assert_equal(1944, Converter.new('MCMXLIV').getResult())
+    assert_equal(40, Converter.resolve('XL'))
+    assert_equal(1944, Converter.resolve('MCMXLIV'))
   end
 
   def test_only_tree_times_in_succession_symbols
     symbols = [ 'IIII', 'XXXX', 'CCCC', 'MMMM' ]
     symbols.each do |symbol|
-      assert_raise_message("No more than 3 successions symbols") { Converter.new(symbol).getResult() }
+      assert_raise_message("No more than 3 successions symbols") { Converter.resolve(symbol) }
     end
   end
 
   def test_never_successive_symbols
     symbols = [ 'DD', 'LL', 'VV' ]
     symbols.each do |symbol|
-      assert_raise_message("Symbols can never be repeated") { Converter.new(symbol).getResult() }
+      assert_raise_message("Symbols can never be repeated") { Converter.resolve(symbol) }
     end
   end
 end
