@@ -16,6 +16,9 @@ class Converter
   end
 
   def getResult
+
+    assert_no_more_than_tree_times_in_succession
+
     result = 0
     i = 0
     @symbols.split("").each do |symbol|
@@ -37,6 +40,11 @@ class Converter
         return value if key == symbol
       end
   end
+
+  def assert_no_more_than_tree_times_in_succession
+    raise "No more than 3 successions symbols" if /(IIII|XXXX|CCCC|MMMM)/ =~ @symbols
+  end
+
 end
 
 class ConverterTest < Test::Unit::TestCase
@@ -59,6 +67,13 @@ class ConverterTest < Test::Unit::TestCase
   def test_decrease_when_lesser_numbers_precedes_greater_ones
     assert_equal(40, Converter.new('XL').getResult())
     assert_equal(1944, Converter.new('MCMXLIV').getResult())
+  end
+
+  def test_only_tree_times_in_succession
+    symbols = [ 'IIII', 'XXXX', 'CCCC', 'MMMM' ]
+    symbols.each do |symbol|
+      assert_raise_message("No more than 3 successions symbols") { Converter.new(symbol).getResult() }
+    end
   end
 end
 
