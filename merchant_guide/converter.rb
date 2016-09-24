@@ -19,6 +19,7 @@ class Converter
 
     assert_no_more_than_tree_times_in_succession
     assert_no_more_than_single_occurence
+    assert_I_subtracs_only_valid_symbols
 
     result = 0
     i = 0
@@ -48,6 +49,10 @@ class Converter
 
   def assert_no_more_than_single_occurence
     raise "Symbols can never be repeated" if /(DD|LL|VV)/ =~ @symbols
+  end
+
+  def assert_I_subtracs_only_valid_symbols
+    raise "I can be subtracted from V and X only" if /(IL|IC|ID|IM)/ =~ @symbols
   end
 
   def self.resolve(symbols)
@@ -91,6 +96,20 @@ class ConverterTest < Test::Unit::TestCase
     symbols.each do |symbol|
       assert_raise_message("Symbols can never be repeated") { Converter.resolve(symbol) }
     end
+  end
+
+  def test_I_can_be_subtracted_from_V_and_X_only
+
+    invalid_symbols = [ 'IL', 'IC', 'ID', 'IM', 'MID', 'DIC' ]
+
+    invalid_symbols.each do |symbol| 
+        assert_raise_message("I can be subtracted from V and X only") { Converter.resolve(symbol) }
+    end
+
+
+    valid_symbols = [ 'IV', 'IX' ]
+    valid_symbols.each { |symbol| assert_nothing_raised {Converter.resolve(symbol)}}
+
   end
 end
 
