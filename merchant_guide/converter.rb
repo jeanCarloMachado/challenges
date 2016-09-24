@@ -18,6 +18,7 @@ class Converter
   def getResult
 
     assert_no_more_than_tree_times_in_succession
+    assert_no_more_than_single_occurence
 
     result = 0
     i = 0
@@ -45,6 +46,10 @@ class Converter
     raise "No more than 3 successions symbols" if /(IIII|XXXX|CCCC|MMMM)/ =~ @symbols
   end
 
+  def assert_no_more_than_single_occurence
+    raise "Symbols can never be repeated" if /(DD|LL|VV)/ =~ @symbols
+  end
+
 end
 
 class ConverterTest < Test::Unit::TestCase
@@ -69,10 +74,17 @@ class ConverterTest < Test::Unit::TestCase
     assert_equal(1944, Converter.new('MCMXLIV').getResult())
   end
 
-  def test_only_tree_times_in_succession
+  def test_only_tree_times_in_succession_symbols
     symbols = [ 'IIII', 'XXXX', 'CCCC', 'MMMM' ]
     symbols.each do |symbol|
       assert_raise_message("No more than 3 successions symbols") { Converter.new(symbol).getResult() }
+    end
+  end
+
+  def test_never_successive_symbols
+    symbols = [ 'DD', 'LL', 'VV' ]
+    symbols.each do |symbol|
+      assert_raise_message("Symbols can never be repeated") { Converter.new(symbol).getResult() }
     end
   end
 end
