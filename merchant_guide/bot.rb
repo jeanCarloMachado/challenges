@@ -13,12 +13,16 @@ class Bot
   end
 
   def talk(message)
+    begin
+      if isQuestion(message)
+        return questionate(message)
+      end
 
-    if isQuestion(message)
-      return questionate(message)
+      instruct(message)
+
+    rescue
+      return "I have no idea what you are talking about"
     end
-
-    instruct(message)
   end
 
   def isQuestion(str)

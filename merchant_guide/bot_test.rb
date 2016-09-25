@@ -48,13 +48,13 @@ class BotTest < Test::Unit::TestCase
 
   end
 
-  def test_raise_exception_on_invalid_questions
+  def test_raise_exception_on_invalid_talk
 
     bot = Bot.Factory()
 
-    assert_raise_message("I have no idea what you are talking about") do
-      bot.questionate('how much wood could a woodchuck chuck if a woodchuck could chuck wood ?')
-
-    end
+    assert_equal(
+      "I have no idea what you are talking about",
+      bot.talk('how much wood could a woodchuck chuck if a woodchuck could chuck wood ?')
+    )
   end
 end
