@@ -1,4 +1,3 @@
-require "test/unit"
 load "bot.rb"
 
 class BotTest < Test::Unit::TestCase

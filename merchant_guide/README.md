@@ -31,3 +31,12 @@ glob prok Gold is 57800 Credits
 glob prok Iron is 782 Credits
 I have no idea what you are talking about
 ```
+
+# Tests
+
+To run the whole suite:
+
+```
+ruby ts_all_the_tests.rb
+
+```

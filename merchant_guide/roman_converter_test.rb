@@ -1,5 +1,3 @@
-require "test/unit"
-load "roman_converter.rb"
 
 class ConverterTest < Test::Unit::TestCase
   def test_single_symbols
