@@ -1,4 +1,4 @@
-load "roman_converter.rb"
+require "./roman_converter.rb"
 
 class Bot
   TRANSLATIONS = {}

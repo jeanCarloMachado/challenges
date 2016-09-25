@@ -1,3 +1,3 @@
 require 'test/unit'
-load 'bot_test.rb'
-load 'roman_converter_test.rb'
+require './bot_test.rb'
+require './roman_converter_test.rb'

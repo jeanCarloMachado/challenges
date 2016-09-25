@@ -1,4 +1,4 @@
-load "bot.rb"
+require "./bot.rb"
 
 class BotTest < Test::Unit::TestCase
 
