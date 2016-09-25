@@ -1,5 +1,5 @@
 
-class Converter
+class RomanToArab
     attr_accessor :input_symbols
     MAP = {
         'I' => 1,

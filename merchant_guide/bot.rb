@@ -1,15 +1,15 @@
-require "./roman_converter"
+require "./roman_to_arab"
 
 class Bot
     ALIASES = {}
     ITENS_CREDITS = {}
 
     def self.Factory
-        bot = self.new(Converter.new())
+        bot = self.new(RomanToArab.new())
     end
 
-    def initialize (roman_converter)
-        @roman_converter = roman_converter
+    def initialize (roman_to_arab)
+        @roman_to_arab = roman_to_arab
     end
 
     def talk (message)
@@ -96,8 +96,8 @@ class Bot
 
     def get_value_from_symbols_aliases (symbol_alias)
         roman_vesion = convert_aliases_to_roman (symbol_alias)
-        @roman_converter.input_symbols = roman_vesion
-        @roman_converter.convert
+        @roman_to_arab.input_symbols = roman_vesion
+        @roman_to_arab.convert
     end
 
     def convert_aliases_to_roman (str)
