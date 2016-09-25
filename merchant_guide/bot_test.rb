@@ -32,7 +32,6 @@ class BotTest < Test::Unit::TestCase
       bot.questionate('how many Credits is glob prok Silver ?')
     )
 
-
     bot.instruct('glob prok Gold is 57800 Credits')
 
     assert_equal(

@@ -12,6 +12,19 @@ class Bot
     @roman_converter = roman_converter
   end
 
+  def talk(message)
+
+    if isQuestion(message)
+      return questionate(message)
+    end
+
+    instruct(message)
+  end
+
+  def isQuestion(str)
+    /\?$/ =~ str
+  end
+
   def instruct(message)
     if /Credits$/ =~ message
       match = message.match(/([A-Za-z ]*) ([A-Za-z]+) is ([0-9]*)/)
@@ -29,6 +42,8 @@ class Bot
 
     match = message.match(/([A-Za-z]*) is ([A-Za-z]*)/)
     TRANSLATIONS[match[1]] = match[2]
+
+    return
   end
 
   def questionate(question)

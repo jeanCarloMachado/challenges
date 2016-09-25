@@ -11,7 +11,6 @@ class Converter
     'M' => 1000
   }
 
-
   def initialize(symbols = nil)
     @symbols = symbols
   end
