@@ -1,6 +1,6 @@
 
 class Converter
-    attr_accessor :symbols
+    attr_accessor :input_symbols
     MAP = {
         'I' => 1,
         'V' => 5,
@@ -11,8 +11,8 @@ class Converter
         'M' => 1000
     }
 
-    def initialize(symbols = nil)
-        @symbols = symbols
+    def initialize (input_symbols = nil)
+        @input_symbols = input_symbols
     end
 
     def convert
@@ -23,7 +23,7 @@ class Converter
 
         result = 0
         i = 0
-        @symbols.split("").each do |symbol|
+        @input_symbols.split("").each do |symbol|
             value = get_value(symbol)
 
             if precedes_greater_number?(value, i)
@@ -38,7 +38,7 @@ class Converter
     end
 
     def precedes_greater_number? (value, indice)
-        next_value = @symbols.split("").at(indice+1)
+        next_value = @input_symbols.split("").at(indice+1)
         next_value = !next_value ? 0 : get_value(next_value)
         precedes_great_number = next_value > value
 
@@ -52,7 +52,7 @@ class Converter
     def consecutive_preceed_of_lesser_number (next_value, indice)
         return nil if indice == 0
 
-        previous_value = @symbols.split("").at(indice-1)
+        previous_value = @input_symbols.split("").at(indice-1)
         return nil if !previous_value
         previous_value =  get_value(previous_value)
         previous_value < next_value
@@ -65,23 +65,23 @@ class Converter
     end
 
     def assert_no_more_than_tree_times_in_succession
-        raise "No more than 3 successions symbols" if /(IIII|XXXX|CCCC|MMMM)/ =~ @symbols
+        raise "No more than 3 successions symbols" if /(IIII|XXXX|CCCC|MMMM)/ =~ @input_symbols
     end
 
     def assert_no_more_than_single_occurence
-        raise "Symbols can never be repeated" if /(DD|LL|VV)/ =~ @symbols
+        raise "Symbols can never be repeated" if /(DD|LL|VV)/ =~ @input_symbols
     end
 
     def assert_I_subtracs_only_valid_symbols
-        raise "I can be subtracted from V and X only" if /(IL|IC|ID|IM)/ =~ @symbols
+        raise "I can be subtracted from V and X only" if /(IL|IC|ID|IM)/ =~ @input_symbols
     end
 
     def assert_X_subtracs_only_valid_symbols
-        raise "X can be subtracted from L and C only" if /(XM|XD)/ =~ @symbols
+        raise "X can be subtracted from L and C only" if /(XM|XD)/ =~ @input_symbols
     end
 
-    def self.resolve(symbols)
-        converter = self.new(symbols)
+    def self.resolve(input_symbols)
+        converter = self.new(input_symbols)
         converter.convert()
     end
 end

@@ -1,4 +1,4 @@
-load "bot"
+require "./bot"
 
 bot = Bot.Factory()
 
