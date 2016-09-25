@@ -1,4 +1,4 @@
-load "bot.rb"
+load "bot"
 
 bot = Bot.Factory()
 
