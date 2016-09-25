@@ -4,7 +4,8 @@
 ruby main.rb input.txt
 ```
 
-Where the file follows this pattern
+Where the input.txt file follows the given pattern:
+
 ```
 glob is I
 prok is V
