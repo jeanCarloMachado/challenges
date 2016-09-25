@@ -1,5 +1,6 @@
 
 class Converter
+  attr_accessor :symbols
   MAP = {
     'I' => 1,
     'V' => 5,
@@ -10,11 +11,12 @@ class Converter
     'M' => 1000
   }
 
-  def initialize(symbols)
+
+  def initialize(symbols = nil)
     @symbols = symbols
   end
 
-  def getResult
+  def convert
     assert_no_more_than_tree_times_in_succession
     assert_no_more_than_single_occurence
     assert_I_subtracs_only_valid_symbols
@@ -23,7 +25,7 @@ class Converter
     result = 0
     i = 0
     @symbols.split("").each do |symbol|
-      value = getValue(symbol)
+      value = get_value(symbol)
 
       if precedes_greater_number?(value, i)
         result-=value
@@ -38,7 +40,7 @@ class Converter
 
   def precedes_greater_number? (value, indice)
     next_value = @symbols.split("").at(indice+1)
-    next_value = !next_value ? 0 : getValue(next_value)
+    next_value = !next_value ? 0 : get_value(next_value)
     precedes_great_number = next_value > value
 
     if (precedes_great_number && consecutive_preceed_of_lesser_number(next_value, indice))
@@ -49,14 +51,15 @@ class Converter
   end
 
   def consecutive_preceed_of_lesser_number (next_value, indice)
-      previous_value = @symbols.split("").at(indice-1)
-      return precedes_greater_number if !previous_value
-      previous_value =  getValue(previous_value)
+      return nil if indice == 0
 
+      previous_value = @symbols.split("").at(indice-1)
+      return nil if !previous_value
+      previous_value =  get_value(previous_value)
       previous_value < next_value
   end
 
-  def getValue(symbol)
+  def get_value(symbol)
     MAP.each do |key, value|
       return value if key == symbol
     end
@@ -80,7 +83,7 @@ class Converter
 
   def self.resolve(symbols)
     converter = self.new(symbols)
-    converter.getResult()
+    converter.convert()
   end
 end
 

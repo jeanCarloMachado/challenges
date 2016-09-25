@@ -73,6 +73,12 @@ class ConverterTest < Test::Unit::TestCase
       assert_raise_message("Only one small-value symbol may be subtracted from any large-value symbol") { Converter.resolve(symbol) }
     end
 
+
+  end
+
+  def test_only_one_small_value_symbol_may_be_subtracted_valid_cases
+    valid_symbols = [ 'XLII' ]
+    valid_symbols.each { |symbol| assert_nothing_raised {Converter.resolve(symbol)}}
   end
 end
 
