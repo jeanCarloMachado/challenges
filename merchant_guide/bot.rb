@@ -32,7 +32,6 @@ class Bot
   end
 
   def questionate(question)
-
     case
       when how_many_question(question)
         match = question.match(/is ([A-Za-z ]*) ([A-Za-z]+) ?/)
@@ -50,6 +49,9 @@ class Bot
         symbol_alias.strip!
         value = get_value_from_symbols(symbol_alias)
         return "#{symbol_alias} is #{value}"
+      else 
+
+      raise "I have no idea what you are talking about"
     end
 
   end
@@ -61,7 +63,6 @@ class Bot
   def how_much_question (question)
       /^how much is/ =~ question
   end
-
 
   def get_value_from_symbols(symbol_alias)
     roman_vesion = convert_to_roman_str (symbol_alias)
