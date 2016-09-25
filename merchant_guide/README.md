@@ -9,8 +9,8 @@ solution would involve some sort of meta-heuristics that seemed too much
 to tackle on a challenge (and its harder to test).
 
 I don't have much experience with ruby, but since I discovered
-it it's my first option for generic Web development and this kind
-of not-performance dependent problems.
+it it's been my first option for generic Web development and fits
+well with kind of no-performance dependent problems.
 
 I used an imperative OO style to develop the solution.
 All the requirements we're developed using TDD.
@@ -26,6 +26,7 @@ Some of the concerns I kept in mind while developing:
 - semantic implementation of the requirements
 - inversion of dependencies
 - simple public interfaces
+- encapsulation
 - expressive variable names
 - KISS
 
@@ -45,6 +46,10 @@ In resume, there's a lot room for improvement here. But clean code
 is much more about honesty than perfection. I don't use
 the refactoring part of the TDD cycle all the time but when you
 take the other parts seriously the result tends to be good enough.
+
+To understand more about my concerns while developing one can see my
+talk about Clean Code
+[here](https://github.com/jeanCarloMachado/talks/blob/master/clean-codev2/presentation.pdf).
 
 ## Usage
 
