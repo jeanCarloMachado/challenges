@@ -1,6 +1,6 @@
 require "test/unit"
 
-class Jankenpon 
+class Jankenpon
 
   STONE = 1
   SCISSORS = 2
@@ -21,7 +21,7 @@ class Jankenpon
     [ STONE, SCISSORS, PLAYER_ONE_WINS ],
     [ SCISSORS, STONE, PLAYER_TWO_WINS ]
   ]
- 
+
   def initialize(playerOne, playerTwo)
     @playerOne = playerOne
     @playerTwo = playerTwo
@@ -36,7 +36,7 @@ class Jankenpon
   end
 end
 
- 
+
 class TestJankenpon < Test::Unit::TestCase
   def test_even_when_options_are_same
     assert_equal(Jankenpon::EVEN, Jankenpon.new(Jankenpon::STONE, Jankenpon::STONE).getResult())
