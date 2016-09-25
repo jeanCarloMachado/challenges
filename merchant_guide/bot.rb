@@ -14,7 +14,7 @@ class Bot
 
     def talk (message)
         begin
-            if isQuestion(message)
+            if is_question(message)
                 return questionate(message)
             end
 
@@ -24,7 +24,7 @@ class Bot
         end
     end
 
-    def isQuestion (str)
+    def is_question (str)
         /\?$/ =~ str
     end
 
