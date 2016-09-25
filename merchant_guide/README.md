@@ -40,6 +40,8 @@ Some of the things I would improve:
 - maybe use more of a declarative programming style, this is the
   kind of problem that would be solved nicely in a more
   functional, combinatorial way
+- a tokenizer would be a nice thing to use in this problem, even
+  more if harder phrases were required
 
 
 In resume, there's a lot room for improvement here. But clean code
