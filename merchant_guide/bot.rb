@@ -33,24 +33,35 @@ class Bot
 
   def questionate(question)
 
-    if /^how many Credits/ =~ question
-      match = question.match(/is ([A-Za-z ]*) ([A-Za-z]+) ?/)
-      symbols = match[1]
-      label = match[2]
+    case
+      when how_many_question(question)
+        match = question.match(/is ([A-Za-z ]*) ([A-Za-z]+) ?/)
+        symbols = match[1]
+        label = match[2]
 
-      units = get_value_from_symbols(symbols)
-      credits = LABELS[label] * units
+        units = get_value_from_symbols(symbols)
+        credits = LABELS[label] * units
 
-      return "#{symbols} #{label} is #{credits} Credits"
+        return "#{symbols} #{label} is #{credits} Credits"
+      when how_much_question(question)
+        match = question.match(/how much is ([A-Za-z ]*) ?/)
+
+        symbol_alias = match[1]
+        symbol_alias.strip!
+        value = get_value_from_symbols(symbol_alias)
+        return "#{symbol_alias} is #{value}"
     end
 
-    match = question.match(/how much is ([A-Za-z ]*) ?/)
-
-    symbol_alias = match[1]
-    symbol_alias.strip!
-    value = get_value_from_symbols(symbol_alias)
-    "#{symbol_alias} is #{value}"
   end
+
+  def how_many_question (question)
+      /^how many Credits/ =~ question
+  end
+
+  def how_much_question (question)
+      /^how much is/ =~ question
+  end
+
 
   def get_value_from_symbols(symbol_alias)
     roman_vesion = convert_to_roman_str (symbol_alias)
