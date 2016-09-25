@@ -1,9 +1,8 @@
-require "test/unit"
 load "roman_converter.rb"
 
 class Bot
-  TRANSLATIONS = {
-  }
+  TRANSLATIONS = {}
+  LABELS = {}
 
   def self.Factory()
     bot = self.new(Converter.new())
@@ -14,21 +13,49 @@ class Bot
   end
 
   def instruct(message)
+    if /Credits$/ =~ message
+      match = message.match(/([A-Za-z ]*) ([A-Za-z]+) is ([0-9]*)/)
+      units = match[1]
+      label = match[2]
+      credits = match[3].to_i
+
+      units = get_value_from_symbols(units)
+      single_value = credits / units
+
+      LABELS[label] = single_value
+      return
+
+    end
+
     match = message.match(/([A-Za-z]*) is ([A-Za-z]*)/)
     TRANSLATIONS[match[1]] = match[2]
   end
 
   def questionate(question)
+
+    if /^how many Credits/ =~ question
+      match = question.match(/is ([A-Za-z ]*) ([A-Za-z]+) ?/)
+      symbols = match[1]
+      label = match[2]
+
+      units = get_value_from_symbols(symbols)
+      credits = LABELS[label] * units
+
+      return "#{symbols} #{label} is #{credits} Credits"
+    end
+
     match = question.match(/how much is ([A-Za-z ]*) ?/)
 
     symbol_alias = match[1]
     symbol_alias.strip!
-    roman_vesion = convert_to_roman_str (symbol_alias)
-
-    @roman_converter.symbols = roman_vesion
-    value = @roman_converter.convert
-
+    value = get_value_from_symbols(symbol_alias)
     "#{symbol_alias} is #{value}"
+  end
+
+  def get_value_from_symbols(symbol_alias)
+    roman_vesion = convert_to_roman_str (symbol_alias)
+    @roman_converter.symbols = roman_vesion
+    @roman_converter.convert
   end
 
   def convert_to_roman_str (str)
@@ -40,35 +67,3 @@ class Bot
   end
 end
 
-class BotTest < Test::Unit::TestCase
-
-  def test_replacement_instructions
-    bot = Bot.Factory()
-    bot.instruct('glob is I')
-    bot.instruct('prok is V')
-    bot.instruct('pish is X')
-    bot.instruct('tegj is L')
-
-    assert_equal("glob is 1", bot.questionate('how much is glob ?'))
-    assert_equal("prok is 5", bot.questionate('how much is prok ?'))
-    assert_equal("pish is 10", bot.questionate('how much is pish ?'))
-    assert_equal("tegj is 50", bot.questionate('how much is tegj ?'))
-
-
-    assert_equal("pish tegj glob glob is 42", bot.questionate('how much is pish tegj glob glob ?'))
-
-  end
-
-  def test_abstract_values
-    bot = Bot.Factory()
-    bot.instruct('glob is I')
-    bot.instruct('prok is V')
-    bot.instruct('pish is X')
-    bot.instruct('glob glob Silver is 34 Credits')
-
-    assert_equal(
-      "glob prok Silver is 68 Credits",
-      bot.questionate('how many Credits is glob prok Silver ?')
-    )
-  end
-end
