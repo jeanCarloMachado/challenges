@@ -13,7 +13,7 @@ it it's been my first option for generic Web development and fits
 well with kind of no-performance dependent problems.
 
 I used an imperative OO style to develop the solution.
-All the requirements we're developed using TDD.
+All the requirements were developed using TDD.
 
 Some of the things I didn't spend much effort:
 - Performance
