@@ -13,7 +13,6 @@ class HolesCounter
                 $result++;
                 continue;
             }
-            
             if (strstr(self::TWO_HOLE_LETTERS, $string{$i})) {
                 $result+= 2;
             }
