@@ -1,6 +1,6 @@
 require "test/unit"
 
-class FatoresPrimos 
+class FatoresPrimos
 	PRIMES = [
 		1, 2, 3
 	]
@@ -11,8 +11,8 @@ class FatoresPrimos
 
 	def getResult
 
-		PRIMES.each { |prime| 
-			if (@source == prime) 
+		PRIMES.each { |prime|
+			if (@source == prime)
 				return [@source]
 			end
 		}
@@ -23,7 +23,7 @@ class FatoresPrimos
 			result.push(2)
 		end
 
-		if @source % 3 == 0 
+		if @source % 3 == 0
 			result.push(3)
 		end
 
