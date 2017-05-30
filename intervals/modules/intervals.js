@@ -14,7 +14,7 @@ module.exports = {
         var interval = [];
         for ( var i = 0; i < list.length-1; i++ ) {
             if ((list[i] - list[i+1]) == -1) {
-                if (hasInterval == false) { 
+                if (hasInterval == false) {
                     interval.push(list[i]);
                     hasInterval=true;
                 }
@@ -36,7 +36,6 @@ module.exports = {
                     var interval = [];
                 }
             }
-
         }
 
         return result;
